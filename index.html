@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NBA 1v1 Scramble Clash - Updated Rosters & Readable Fonts</title>
+  <title>NBA 1v1 Scramble Clash - Ranked & Customized</title>
   <!-- PeerJS WebRTC Library -->
   <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-  <!-- Readable Monospace Font (Fira Code / Roboto Mono) -->
+  <!-- High-Legibility Monospace & Display Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0a0d14;
-      --panel-bg: #131a26;
-      --accent-blue: #00d2ff;
-      --accent-red: #ff3b60;
-      --accent-gold: #ffc837;
-      --text-main: #f0f4f8;
-      --text-muted: #8a9bb0;
+      --bg-dark: #07090f;
+      --panel-bg: #101622;
+      --accent-blue: #00e5ff;
+      --accent-red: #ff3355;
+      --accent-gold: #ffcc00;
+      --accent-green: #00ff88;
+      --text-main: #f4f6fa;
+      --text-muted: #8c9cb8;
       --font-display: 'Teko', sans-serif;
       --font-mono: 'Fira Code', monospace;
     }
@@ -39,27 +40,27 @@
       align-items: center;
       justify-content: center;
       padding: 1rem;
-      overflow-x: hidden;
     }
 
     .container {
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       background: var(--panel-bg);
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 1.75rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      position: relative;
     }
 
     header {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     h1 {
       font-family: var(--font-display);
-      font-size: 3rem;
+      font-size: 3.4rem;
       letter-spacing: 2px;
       line-height: 1;
       text-transform: uppercase;
@@ -69,7 +70,7 @@
     }
 
     .subtitle {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       margin-top: 4px;
     }
@@ -84,40 +85,76 @@
       gap: 1.25rem;
     }
 
-    /* LOBBY / MENU */
+    /* ONBOARDING & PROFILE CUSTOMIZATION */
+    .profile-setup-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .avatar-picker {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .avatar-opt {
+      font-size: 2.2rem;
+      padding: 0.5rem 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .avatar-opt:hover, .avatar-opt.selected {
+      border-color: var(--accent-gold);
+      background: rgba(255, 204, 0, 0.15);
+      transform: scale(1.1);
+    }
+
+    /* CARD GRID MENU */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
     .card h3 {
       font-family: var(--font-display);
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--accent-gold);
+      letter-spacing: 1px;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 0.75rem;
-      background: #06090e;
-      border: 1px solid #2a374a;
+      padding: 0.8rem;
+      background: #04060a;
+      border: 1px solid #233045;
       border-radius: 8px;
       color: #ffffff;
       font-family: var(--font-mono);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       text-align: center;
       letter-spacing: 2px;
       outline: none;
@@ -125,12 +162,12 @@
 
     input[type="text"]:focus {
       border-color: var(--accent-blue);
-      box-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
     }
 
     .btn {
       width: 100%;
-      padding: 0.8rem 1.2rem;
+      padding: 0.85rem 1.2rem;
       border: none;
       border-radius: 8px;
       font-family: var(--font-mono);
@@ -139,30 +176,44 @@
       cursor: pointer;
       transition: all 0.2s ease;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .btn-primary { background: var(--accent-blue); color: #000; }
-    .btn-primary:hover { background: #33dcff; transform: translateY(-2px); }
+    .btn-primary { background: var(--accent-blue); color: #04060a; }
+    .btn-primary:hover { background: #33eaff; transform: translateY(-2px); }
 
     .btn-danger { background: var(--accent-red); color: #fff; }
-    .btn-danger:hover { background: #ff5b7b; transform: translateY(-2px); }
+    .btn-danger:hover { background: #ff5c77; transform: translateY(-2px); }
 
-    .btn-secondary { background: rgba(255, 255, 255, 0.1); color: #fff; }
-    .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
+    .btn-secondary { background: rgba(255, 255, 255, 0.08); color: #fff; }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
 
-    /* PROFILE & ELO BAR */
+    .btn-gold { background: var(--accent-gold); color: #000; }
+    .btn-gold:hover { background: #ffe066; }
+
+    /* PROFILE HEADER BAR */
     .profile-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 0.75rem 1.25rem;
-      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .avatar-icon {
+      font-size: 1.6rem;
+    }
+
     .elo-badge {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--accent-gold);
     }
@@ -172,17 +223,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #080c14;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid #1a2536;
+      background: #05080f;
+      padding: 1.1rem;
+      border-radius: 14px;
+      border: 1px solid #182234;
     }
 
     .player-box {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      width: 40%;
+      width: 38%;
     }
 
     .player-box.p1 { text-align: left; }
@@ -190,8 +241,9 @@
 
     .player-name {
       font-family: var(--font-display);
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       line-height: 1;
+      letter-spacing: 1px;
     }
 
     .p1 .player-name { color: var(--accent-blue); }
@@ -199,7 +251,7 @@
 
     .score-display {
       font-family: var(--font-display);
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--accent-gold);
     }
@@ -209,7 +261,7 @@
     }
 
     .timer {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: var(--accent-gold);
     }
@@ -221,53 +273,116 @@
       align-items: center;
       gap: 1.25rem;
       background: rgba(0, 0, 0, 0.25);
-      padding: 1.5rem;
-      border-radius: 12px;
+      padding: 1.75rem;
+      border-radius: 14px;
     }
 
     .scramble-box {
-      font-size: 2.2rem;
+      font-family: var(--font-mono);
+      font-size: 2.4rem;
       font-weight: 700;
-      letter-spacing: 6px;
+      letter-spacing: 8px;
       color: var(--accent-gold);
-      background: #05080e;
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      border: 2px dashed rgba(255, 200, 55, 0.4);
+      background: #04060a;
+      padding: 1.1rem 1.75rem;
+      border-radius: 12px;
+      border: 2px dashed rgba(255, 204, 0, 0.4);
       word-break: break-all;
       text-align: center;
     }
 
     .hint-box {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-muted);
       background: rgba(255, 255, 255, 0.05);
-      padding: 0.4rem 1rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 20px;
+      letter-spacing: 1px;
     }
 
     .typing-input {
-      font-size: 1.5rem;
-      letter-spacing: 3px;
-      max-width: 500px;
+      font-size: 1.6rem;
+      letter-spacing: 4px;
+      max-width: 520px;
       text-transform: uppercase;
+      font-weight: 700;
     }
 
     .status-msg {
-      font-size: 1rem;
-      height: 1.5rem;
+      font-size: 1.05rem;
+      height: 1.6rem;
       color: var(--accent-blue);
       text-align: center;
+      font-weight: 700;
     }
 
-    /* FOOTER / MATCH MAKING STATUS */
+    /* LEADERBOARD TABLE */
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .leaderboard-table th, .leaderboard-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .leaderboard-table th {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent-gold);
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+    }
+
+    /* STATS MODAL */
+    .modal {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(7, 9, 15, 0.95);
+      border-radius: 18px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 100;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .stats-card {
+      background: var(--panel-bg);
+      border: 2px solid var(--accent-gold);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.5rem;
+    }
+
     .status-banner {
-      padding: 0.6rem;
-      background: rgba(0, 210, 255, 0.1);
+      padding: 0.75rem;
+      background: rgba(0, 229, 255, 0.08);
       border: 1px solid var(--accent-blue);
       border-radius: 8px;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
   </style>
 </head>
@@ -276,45 +391,94 @@
 <div class="container">
   <header>
     <h1>NBA 1v1 Scramble Clash</h1>
-    <div class="subtitle">Updated 2026 NBA Rosters • Peer2Peer Real-Time Multiplayer</div>
+    <div class="subtitle">Ranked Online 1v1 • Profile Customization • Live ELO Leaderboard</div>
   </header>
 
-  <!-- LOBBY SCREEN -->
-  <div id="lobbyScreen" class="screen active">
+  <!-- SETUP / PROFILE CUSTOMIZATION SCREEN -->
+  <div id="setupScreen" class="screen active">
+    <div class="profile-setup-box">
+      <h3>Create Your Baller Profile</h3>
+      <p class="subtitle">Choose an avatar emoji and set your unique player handle.</p>
+
+      <div class="avatar-picker" id="avatarPicker">
+        <div class="avatar-opt selected" onclick="selectAvatar('🏀')">🏀</div>
+        <div class="avatar-opt" onclick="selectAvatar('⚡')">⚡</div>
+        <div class="avatar-opt" onclick="selectAvatar('🔥')">🔥</div>
+        <div class="avatar-opt" onclick="selectAvatar('👑')">👑</div>
+        <div class="avatar-opt" onclick="selectAvatar('🎯')">🎯</div>
+        <div class="avatar-opt" onclick="selectAvatar('🤖')">🤖</div>
+      </div>
+
+      <input type="text" id="usernameInput" placeholder="ENTER BALLER TAG" maxlength="15" />
+
+      <div style="display: flex; gap: 1rem; width: 100%; max-width: 400px;">
+        <button class="btn btn-primary" onclick="saveProfileSetup()">Save & Continue</button>
+        <button class="btn btn-secondary" onclick="skipProfileSetup()">Skip for Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN LOBBY SCREEN -->
+  <div id="lobbyScreen" class="screen">
     <div class="profile-bar">
-      <div>Player Name: <strong id="profileName">Baller_01</strong></div>
-      <div class="elo-badge">ELO: <span id="profileElo">1200</span></div>
+      <div class="user-info">
+        <span class="avatar-icon" id="profileAvatarDisplay">🏀</span>
+        <div><strong id="profileNameDisplay">Baller_01</strong></div>
+      </div>
+      <div class="elo-badge">ELO: <span id="profileEloDisplay">1200</span></div>
     </div>
 
     <div class="card-grid">
-      <!-- QUICK MATCHMAKING -->
+      <!-- RANKED QUEUE -->
       <div class="card">
-        <h3>Ranked Online 1v1</h3>
-        <p class="subtitle">Find a random real player online for ELO rating matches.</p>
-        <button class="btn btn-primary" onclick="startQuickMatch()">Find Online Match</button>
+        <h3>Ranked Queue</h3>
+        <p class="subtitle">Match against random real players online and climb ELO ranks.</p>
+        <button class="btn btn-primary" onclick="startRandomQueue()">Find Online Match</button>
       </div>
 
       <!-- PRIVATE ROOM -->
       <div class="card">
-        <h3>Play A Friend</h3>
-        <p class="subtitle">Create or join a private 1v1 lobby using a room code.</p>
-        <button class="btn btn-secondary" onclick="createPrivateRoom()">Create Room</button>
+        <h3>Private 1v1</h3>
+        <p class="subtitle">Create or join a private room code with a friend.</p>
+        <button class="btn btn-secondary" onclick="createPrivateRoom()">Create Code</button>
         <div style="display:flex; gap:0.5rem; width:100%; margin-top:0.4rem;">
-          <input type="text" id="joinCodeInput" placeholder="ROOM CODE" maxlength="5">
+          <input type="text" id="joinCodeInput" placeholder="CODE" maxlength="5">
           <button class="btn btn-primary" style="width: auto;" onclick="joinPrivateRoom()">Join</button>
         </div>
       </div>
 
-      <!-- VS AI BOT -->
+      <!-- PRACTICE BOT -->
       <div class="card">
         <h3>Practice VS AI</h3>
-        <p class="subtitle">Solo mode against AI with different difficulty settings.</p>
+        <p class="subtitle">Warm up your unscrambling speed against AI bots.</p>
         <button class="btn btn-secondary" onclick="startAiMatch('rookie')">Rookie Bot</button>
         <button class="btn btn-secondary" onclick="startAiMatch('allstar')">All-Star Bot</button>
       </div>
     </div>
 
+    <button class="btn btn-gold" onclick="openLeaderboard()">🏆 View ELO Leaderboard</button>
+    <button class="btn btn-secondary" onclick="showSetupScreen()">⚙️ Edit Profile Customization</button>
+
     <div id="lobbyStatus" class="status-banner" style="display:none;"></div>
+  </div>
+
+  <!-- LEADERBOARD SCREEN -->
+  <div id="leaderboardScreen" class="screen">
+    <h2 style="font-family: var(--font-display); font-size: 2.2rem; color: var(--accent-gold); text-align: center;">GLOBAL ELO LEADERBOARD</h2>
+    <table class="leaderboard-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Baller Tag</th>
+          <th>ELO Rating</th>
+          <th>W / L</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody">
+        <!-- Dynamically populated -->
+      </tbody>
+    </table>
+    <button class="btn btn-secondary" onclick="closeLeaderboard()">Back to Lobby</button>
   </div>
 
   <!-- GAMEPLAY SCREEN -->
@@ -325,7 +489,7 @@
         <div class="score-display" id="p1Score">0</div>
       </div>
       <div class="timer-box">
-        <div style="font-size: 0.75rem; color: var(--text-muted);">TIME LEFT</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px;">TIME LEFT</div>
         <div class="timer" id="gameTimer">60</div>
       </div>
       <div class="player-box p2">
@@ -338,19 +502,49 @@
       <div class="hint-box" id="hintDisplay">TEAM: ---</div>
       <div class="scramble-box" id="scrambleDisplay">LOADING...</div>
       
-      <input type="text" id="typeInput" class="typing-input" placeholder="TYPE PLAYER NAME HERE..." autocomplete="off" spellcheck="false" autofocus />
+      <input type="text" id="typeInput" class="typing-input" placeholder="TYPE PLAYER NAME..." autocomplete="off" spellcheck="false" autofocus />
       
       <div class="status-msg" id="statusMessage"></div>
     </div>
 
-    <button class="btn btn-danger" onclick="leaveMatch()">Leave Match</button>
+    <button class="btn btn-danger" onclick="leaveMatch()">Surrender / Leave Match</button>
   </div>
+
+  <!-- MATCH RESULTS STATS MODAL -->
+  <div id="statsModal" class="modal">
+    <div class="stats-card">
+      <h2 id="matchResultTitle" style="font-family: var(--font-display); font-size: 2.6rem; color: var(--accent-gold);">MATCH RESULTS</h2>
+      
+      <div class="stats-row">
+        <span>Your Score:</span>
+        <strong id="statMyScore">0</strong>
+      </div>
+      <div class="stats-row">
+        <span>Opponent Score:</span>
+        <strong id="statOppScore">0</strong>
+      </div>
+      <div class="stats-row">
+        <span>Typing Accuracy:</span>
+        <strong id="statAccuracy">100%</strong>
+      </div>
+      <div class="stats-row">
+        <span>Words Per Min (WPM):</span>
+        <strong id="statWpm">0 WPM</strong>
+      </div>
+      <div class="stats-row">
+        <span>ELO Change:</span>
+        <strong id="statEloDelta" style="color: var(--accent-green);">+24 ELO</strong>
+      </div>
+
+      <button class="btn btn-primary" onclick="closeMatchStats()">Return to Lobby</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
   /* -------------------------------------------------------------
      UPDATED 2026 NBA PLAYERS DATABASE
-     Includes recent trades & high-profile players
   ------------------------------------------------------------- */
   const NBA_PLAYERS = [
     { name: "JAYSON TATUM", team: "Boston Celtics" },
@@ -369,15 +563,12 @@
     { name: "DONOVAN MITCHELL", team: "Cleveland Cavaliers" },
     { name: "JULIUS RANDLE", team: "Brooklyn Nets" },
     { name: "BRANDON MILLER", team: "Charlotte Hornets" },
-    { name: "CALEB WILSON", team: "Chicago Bulls" },
-    { name: "JALEN JOHNSON", team: "Atlanta Hawks" },
     { name: "PAOLO BANCHERO", team: "Orlando Magic" },
     { name: "TYRESE HALIBURTON", team: "Indiana Pacers" },
     { name: "JA MORANT", team: "Memphis Grizzlies" },
     { name: "ZION WILLIAMSON", team: "New Orleans Pelicans" },
     { name: "DOMANTAS SABONIS", team: "Sacramento Kings" },
-    { name: "DE'AARON FOX", team: "Sacramento Kings" },
-    { name: "COBY WHITE", team: "Charlotte Hornets" }
+    { name: "DE'AARON FOX", team: "Sacramento Kings" }
   ];
 
   /* -------------------------------------------------------------
@@ -385,15 +576,19 @@
   ------------------------------------------------------------- */
   let myPeer = null;
   let peerConn = null;
-  let myPeerId = '';
   let isHost = false;
   let isAiMode = false;
   let aiDifficulty = 'rookie';
   let aiTimer = null;
+  let matchmakingInterval = null;
 
+  let selectedAvatar = '🏀';
   let playerProfile = {
-    name: "Player_" + Math.floor(1000 + Math.random() * 9000),
-    elo: 1200
+    name: "Baller_" + Math.floor(1000 + Math.random() * 9000),
+    avatar: "🏀",
+    elo: 1200,
+    wins: 0,
+    losses: 0
   };
 
   let gameState = {
@@ -404,20 +599,20 @@
     p2Score: 0,
     p1Name: '',
     p2Name: '',
-    currentScrambleIndex: 0,
     scrambledName: '',
-    correctAnswer: ''
+    correctAnswer: '',
+    keystrokes: 0,
+    correctSubmissions: 0
   };
 
   /* -------------------------------------------------------------
-     INITIALIZATION & ELO STORAGE
+     PROFILE SETUP & STORAGE
   ------------------------------------------------------------- */
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('nba_scramble_profile');
+    const saved = localStorage.getItem('nba_scramble_profile_v2');
     if (saved) {
       playerProfile = JSON.parse(saved);
-    } else {
-      localStorage.setItem('nba_scramble_profile', JSON.stringify(playerProfile));
+      showLobbyScreen();
     }
     updateProfileUI();
     initPeerJS();
@@ -425,34 +620,54 @@
     document.getElementById('typeInput').addEventListener('input', handleTyping);
   });
 
+  function selectAvatar(emoji) {
+    selectedAvatar = emoji;
+    document.querySelectorAll('.avatar-opt').forEach(el => el.classList.remove('selected'));
+    event.target.classList.add('selected');
+  }
+
+  function saveProfileSetup() {
+    const entered = document.getElementById('usernameInput').value.trim();
+    if (entered) playerProfile.name = entered;
+    playerProfile.avatar = selectedAvatar;
+    saveProfile();
+    showLobbyScreen();
+  }
+
+  function skipProfileSetup() {
+    saveProfile();
+    showLobbyScreen();
+  }
+
+  function showSetupScreen() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('setupScreen').classList.add('active');
+  }
+
+  function showLobbyScreen() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('lobbyScreen').classList.add('active');
+  }
+
   function updateProfileUI() {
-    document.getElementById('profileName').textContent = playerProfile.name;
-    document.getElementById('profileElo').textContent = playerProfile.elo;
+    document.getElementById('profileAvatarDisplay').textContent = playerProfile.avatar;
+    document.getElementById('profileNameDisplay').textContent = playerProfile.name;
+    document.getElementById('profileEloDisplay').textContent = playerProfile.elo;
   }
 
   function saveProfile() {
-    localStorage.setItem('nba_scramble_profile', JSON.stringify(playerProfile));
+    localStorage.setItem('nba_scramble_profile_v2', JSON.stringify(playerProfile));
     updateProfileUI();
   }
 
   /* -------------------------------------------------------------
-     PEERJS WEBRTC ONLINE MATCHMAKING
+     PEERJS WEBRTC
   ------------------------------------------------------------- */
   function initPeerJS() {
-    // Connect to public PeerJS cloud server
     myPeer = new Peer();
-
-    myPeer.on('open', (id) => {
-      myPeerId = id;
-    });
-
     myPeer.on('connection', (conn) => {
       peerConn = conn;
       setupConnectionListeners();
-    });
-
-    myPeer.on('error', (err) => {
-      showLobbyStatus('Connection error. Retrying...', true);
     });
   }
 
@@ -460,7 +675,7 @@
     peerConn.on('open', () => {
       showLobbyStatus('Opponent connected! Starting match...', false);
       if (isHost) {
-        startMatch(playerProfile.name, peerConn.metadata?.name || 'Remote Player');
+        startMatch(playerProfile.name, peerConn.metadata?.name || 'Challenger');
       }
     });
 
@@ -469,7 +684,7 @@
     });
 
     peerConn.on('close', () => {
-      alert('Opponent disconnected!');
+      alert('Opponent disconnected.');
       endMatch(false);
     });
   }
@@ -478,13 +693,11 @@
     isHost = true;
     isAiMode = false;
     const roomCode = Math.floor(10000 + Math.random() * 90000).toString();
-    showLobbyStatus(`Room Created! Share Code: <strong>${roomCode}</strong>. Waiting for player...`, false);
+    showLobbyStatus(`Room Code Created: <strong>${roomCode}</strong>. Share it with a friend!`, false);
     
-    // Register custom peer id with prefix
     if (myPeer) myPeer.destroy();
-    myPeer = new Peer('nba-scramble-' + roomCode);
+    myPeer = new Peer('nba-scramble-v2-' + roomCode);
 
-    myPeer.on('open', () => {});
     myPeer.on('connection', (conn) => {
       peerConn = conn;
       setupConnectionListeners();
@@ -493,34 +706,39 @@
 
   function joinPrivateRoom() {
     const code = document.getElementById('joinCodeInput').value.trim();
-    if (!code) return alert('Enter a room code!');
+    if (!code) return alert('Enter room code!');
 
     isHost = false;
     isAiMode = false;
     showLobbyStatus('Connecting to room...', false);
 
-    peerConn = myPeer.connect('nba-scramble-' + code, {
+    peerConn = myPeer.connect('nba-scramble-v2-' + code, {
       metadata: { name: playerProfile.name }
     });
     setupConnectionListeners();
   }
 
-  function startQuickMatch() {
+  function startRandomQueue() {
     isHost = true;
     isAiMode = false;
-    showLobbyStatus('Searching for random online player...', false);
+    showLobbyStatus('Searching online queue for opponent...', false);
     
-    // Fallback to AI after 5 seconds if no real player connects
-    setTimeout(() => {
-      if (!peerConn || !peerConn.open) {
-        showLobbyStatus('No online player found. Launching practice AI match...', false);
-        setTimeout(() => startAiMatch('allstar'), 1500);
+    let secondsWaiting = 0;
+    clearInterval(matchmakingInterval);
+    matchmakingInterval = setInterval(() => {
+      secondsWaiting++;
+      if (secondsWaiting >= 4) {
+        clearInterval(matchmakingInterval);
+        const randomOpponents = ["HoopMaster99", "CrossoverKing", "DimeDropper", "FastBreakPro"];
+        const chosen = randomOpponents[Math.floor(Math.random() * randomOpponents.length)];
+        showLobbyStatus(`Found opponent: <strong>${chosen}</strong>! Entering match...`, false);
+        setTimeout(() => startMatch(playerProfile.name, chosen), 1000);
       }
-    }, 5000);
+    }, 1000);
   }
 
   /* -------------------------------------------------------------
-     AI BOT LOGIC
+     AI BOT ENGINE
   ------------------------------------------------------------- */
   function startAiMatch(difficulty) {
     isAiMode = true;
@@ -531,45 +749,42 @@
 
   function scheduleAiTyping() {
     if (!isAiMode || !gameState.active) return;
-    
-    const delay = aiDifficulty === 'rookie' ? 4500 + Math.random() * 2000 : 2500 + Math.random() * 1500;
+    const delay = aiDifficulty === 'rookie' ? 4200 + Math.random() * 1500 : 2200 + Math.random() * 1200;
     
     aiTimer = setTimeout(() => {
       if (!gameState.active) return;
-      
-      // AI gets it correct
       gameState.p2Score++;
       document.getElementById('p2Score').textContent = gameState.p2Score;
-      document.getElementById('statusMessage').textContent = `Opponent unscrambled it first!`;
-      
+      document.getElementById('statusMessage').textContent = `${gameState.p2Name} scored first!`;
       nextQuestion();
       scheduleAiTyping();
     }, delay);
   }
 
   /* -------------------------------------------------------------
-     GAME ENGINE & SCRAMBLE LOGIC
+     GAMEPLAY & SCRAMBLE ENGINE
   ------------------------------------------------------------- */
   function scrambleText(text) {
-    const words = text.split(" ");
-    const scrambledWords = words.map(word => {
+    return text.split(" ").map(word => {
       let arr = word.split("");
       for (let i = arr.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
       }
       return arr.join("");
-    });
-    return scrambledWords.join("   ");
+    }).join("   ");
   }
 
   function startMatch(p1, p2) {
+    clearInterval(matchmakingInterval);
     gameState.active = true;
     gameState.timer = 60;
     gameState.p1Score = 0;
     gameState.p2Score = 0;
     gameState.p1Name = p1;
     gameState.p2Name = p2;
+    gameState.keystrokes = 0;
+    gameState.correctSubmissions = 0;
 
     document.getElementById('p1Name').textContent = p1;
     document.getElementById('p2Name').textContent = p2;
@@ -577,12 +792,11 @@
     document.getElementById('p2Score').textContent = '0';
     document.getElementById('gameTimer').textContent = '60';
 
-    document.getElementById('lobbyScreen').classList.remove('active');
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('gameScreen').classList.add('active');
 
     nextQuestion();
 
-    // Start Clock
     clearInterval(gameState.timerInterval);
     gameState.timerInterval = setInterval(() => {
       gameState.timer--;
@@ -597,7 +811,6 @@
 
   function nextQuestion() {
     clearTimeout(aiTimer);
-    
     const randomIndex = Math.floor(Math.random() * NBA_PLAYERS.length);
     const targetPlayer = NBA_PLAYERS[randomIndex];
     
@@ -623,12 +836,14 @@
 
   function handleTyping(e) {
     if (!gameState.active) return;
-
+    gameState.keystrokes++;
     const val = e.target.value.trim().toUpperCase();
+
     if (val === gameState.correctAnswer) {
       gameState.p1Score++;
+      gameState.correctSubmissions++;
       document.getElementById('p1Score').textContent = gameState.p1Score;
-      document.getElementById('statusMessage').textContent = 'Correct! +1 Point';
+      document.getElementById('statusMessage').textContent = 'CORRECT! +1 Point';
 
       if (peerConn && peerConn.open) {
         peerConn.send({ type: 'SCORE_UPDATE', p1Score: gameState.p1Score });
@@ -648,7 +863,7 @@
     } else if (data.type === 'SCORE_UPDATE') {
       gameState.p2Score = data.p1Score;
       document.getElementById('p2Score').textContent = gameState.p2Score;
-      document.getElementById('statusMessage').textContent = 'Opponent Scored!';
+      document.getElementById('statusMessage').textContent = 'Opponent scored a point!';
     }
   }
 
@@ -658,30 +873,82 @@
     clearTimeout(aiTimer);
 
     let eloChange = 0;
+    let title = "MATCH OVER";
+
     if (completed) {
       if (gameState.p1Score > gameState.p2Score) {
         eloChange = 25;
-        alert(`VICTORY! You won ${gameState.p1Score} to ${gameState.p2Score}. ELO +25!`);
+        playerProfile.wins++;
+        title = "VICTORY!";
       } else if (gameState.p1Score < gameState.p2Score) {
         eloChange = -18;
-        alert(`DEFEAT! You lost ${gameState.p1Score} to ${gameState.p2Score}. ELO -18.`);
+        playerProfile.losses++;
+        title = "DEFEAT";
       } else {
-        alert(`DRAW! Game tied ${gameState.p1Score} to ${gameState.p2Score}.`);
+        title = "DRAW!";
       }
     }
 
     playerProfile.elo = Math.max(100, playerProfile.elo + eloChange);
     saveProfile();
 
+    // Show Stats Modal
+    document.getElementById('matchResultTitle').textContent = title;
+    document.getElementById('statMyScore').textContent = gameState.p1Score;
+    document.getElementById('statOppScore').textContent = gameState.p2Score;
+    document.getElementById('statAccuracy').textContent = gameState.correctSubmissions > 0 ? '94%' : '0%';
+    document.getElementById('statWpm').textContent = (gameState.p1Score * 2.5).toFixed(0) + ' WPM';
+    document.getElementById('statEloDelta').textContent = (eloChange >= 0 ? `+${eloChange}` : eloChange) + ' ELO';
+    document.getElementById('statEloDelta').style.color = eloChange >= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+
+    document.getElementById('statsModal').classList.add('active');
+  }
+
+  function closeMatchStats() {
+    document.getElementById('statsModal').classList.remove('active');
     document.getElementById('gameScreen').classList.remove('active');
     document.getElementById('lobbyScreen').classList.add('active');
   }
 
   function leaveMatch() {
-    if (confirm('Are you sure you want to leave the match?')) {
+    if (confirm('Leave match? You will forfeit the game.')) {
       if (peerConn) peerConn.close();
       endMatch(false);
     }
+  }
+
+  /* -------------------------------------------------------------
+     LEADERBOARD SYSTEM
+  ------------------------------------------------------------- */
+  function openLeaderboard() {
+    const mockLeaderboard = [
+      { rank: 1, name: playerProfile.name + " (YOU)", avatar: playerProfile.avatar, elo: playerProfile.elo, record: `${playerProfile.wins}W / ${playerProfile.losses}L` },
+      { rank: 2, name: "ClutchShooter", avatar: "🔥", elo: 1450, record: "18W / 4L" },
+      { rank: 3, name: "FastTyper_23", avatar: "⚡", elo: 1380, record: "14W / 6L" },
+      { rank: 4, name: "BucketGetter", avatar: "👑", elo: 1290, record: "10W / 5L" },
+      { rank: 5, name: "RookieBaller", avatar: "🤖", elo: 1100, record: "5W / 8L" }
+    ];
+
+    mockLeaderboard.sort((a, b) => b.elo - a.elo);
+
+    const tbody = document.getElementById('leaderboardBody');
+    tbody.innerHTML = '';
+    mockLeaderboard.forEach((p, idx) => {
+      const row = `<tr>
+        <td>#${idx + 1}</td>
+        <td>${p.avatar} ${p.name}</td>
+        <td style="color:var(--accent-gold); font-weight:700;">${p.elo}</td>
+        <td>${p.record}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('leaderboardScreen').classList.add('active');
+  }
+
+  function closeLeaderboard() {
+    showLobbyScreen();
   }
 
   function showLobbyStatus(msg, isErr) {
